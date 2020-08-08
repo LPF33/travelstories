@@ -1,0 +1,77 @@
+#searchbar{
+    width: 150px;    
+    background: #ffffff;
+    box-shadow:  4px 4px 10px #d9d9d9, 
+             -4px -4px 10px #ffffff;
+    @include flex(row);
+    
+    input{
+        width: 150px;   
+        padding: 5px;
+        background-color: transparent;
+        font-family: $font;
+        outline: none;
+    }
+}
+
+@media screen and (min-width: 640px){
+    #searchbar{
+        width:300px;
+
+        input{
+            width:250px;
+        }
+    }
+}
+
+#mailsearch{
+    position: relative;
+    width: 150px;    
+    background: #ffffff;
+    box-shadow:  4px 4px 10px #d9d9d9, 
+             -4px -4px 10px #ffffff;
+    @include flex(column);
+    
+    input{
+        width: 150px;   
+        height: 30px;
+        padding: 5px;
+        background-color: transparent;
+        font-family: $font;
+        outline: none;
+    }
+
+    #output{
+        position: absolute;
+        top: 30px;
+        left:0;
+        background-color: white;
+        width: 150px;
+        max-height: 200px;
+        padding: 5px;
+        overflow-y: auto;
+    }
+
+    .select{
+        cursor: pointer;
+    }
+
+    .select:hover{
+        width: 100%;
+        background-color: rgb(253, 253, 127);
+    }
+}
+
+@media screen and (min-width: 640px){
+    #mailsearch{
+        width:300px;
+
+        #output{
+            width: 300px;
+        }
+
+        input{
+            width:250px;
+        }
+    }
+}

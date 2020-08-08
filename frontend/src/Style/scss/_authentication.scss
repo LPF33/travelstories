@@ -1,0 +1,162 @@
+#authentication{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(26, 35, 43);
+    font-family: $font;
+    @include flex(column);
+    overflow: hidden;
+
+    img{
+        height: 100%;
+    }
+
+    > div:nth-child(2){
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        width: 80%;
+        max-width: 575px;
+        height: 80%;
+        @include flex(column);
+    }
+}
+
+#slide-auth{
+    position: absolute;
+    left: 50%;
+    bottom: -5vh;
+    transform: translateX(-50%);
+    @include flex(row);
+
+    div{
+        width: 3vh;
+        height: 3vh;
+        border: 2px solid black;
+        background-color: rgba(255, 255, 255, 0.555);
+        margin: 0 2px;
+        border-radius: 50%;
+
+        &.active{
+            background-color: rgba(0, 183, 255, 0.555);
+        }
+    }
+}
+
+@mixin auth($num){
+    width: 100%;
+    height: 100%; 
+
+    > div:first-child{
+        display: grid;
+        grid-template-rows: $num;
+        width: 100%;
+        height: 85%;
+        border-radius: 20px;
+        background-color: rgba(110, 142, 185, 0.5);
+
+        h1,h3{
+            text-align: center;
+        }
+
+        h3{
+          text-shadow: 1px 2px 3px black;  
+        }
+
+        input{
+            margin:10px;
+            padding: 5px;
+            border-radius: 20px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.199);
+            border:2px solid black;
+            font-size:1.2em;
+        }
+        .error{
+            color: rgb(255, 0, 0);
+            font-size: 1.3em;
+            background-color: rgba(0, 0, 0, 0.692);
+        }
+    }    
+
+    button{
+        width: 100%;
+        height: 10%;
+        background-color: rgba(255, 255, 255, 0.555);
+        border-radius: 20px;
+        margin-top: 5%;
+        font-family: $font;
+    }
+}
+
+#login{  
+    @include auth(5fr 1fr 1fr 1fr);
+}
+
+#registration{
+    @include auth(4fr 1fr 1fr 1fr 1fr 1fr 1fr);
+}
+
+#welcome{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template: 0.5fr repeat(3, 1fr) / repeat(2, 1fr);
+    grid-gap: 5px;
+    border-radius: 20px;
+
+    .headline{
+        grid-column:1/3;
+        @include flex(row);
+    }
+    
+    .card{
+        position: relative;
+        opacity: 0.8;        
+
+        .card-front,.card-back{
+            position: absolute;
+            @include flex(column);
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            backface-visibility: hidden;
+            transition: transform 0.5s linear;
+        }
+
+        .card-front{
+            justify-content: space-evenly;
+            transform: rotateY(0deg);
+        }
+
+        .card-back{
+            transform: rotateY(180deg);
+            text-align: center;
+        }
+
+        .card-front.flip{
+            transform: rotateY(180deg);
+        }
+
+        .card-back.flip{
+            transform: rotateY(0deg);
+        }
+
+    }
+
+    .icon{
+        transform: scale(2);
+    }
+}
+
+@media screen and (min-width: 1024px){    
+    #authentication img{
+        width:auto;
+        height: auto;        
+    }
+
+    #welcome .icon{
+        transform: scale(3);
+    }
+}

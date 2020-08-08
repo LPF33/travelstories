@@ -1,0 +1,69 @@
+.loading{
+    position: absolute;
+    top:50%;
+    left:50%;
+    width: 50vw;
+    max-width: 200px;
+    height: 50vw;
+    max-height: 200px;
+    transform: translate(-50%,-50%);  
+    font-family: $font;  
+    z-index:5;
+
+    @for $i from 1 through 5{
+        .loading-circle#{$i}{
+            width: 20px;
+            height: 30vw;
+            max-height: 120px;
+            position: absolute;
+            top:-20px;
+            left:50%;
+            animation: loading 3s linear forwards infinite ;
+            animation-delay: 0.15s * $i;
+            transform-origin: bottom center;
+
+            .circle#{$i}{
+                width: 20px;
+                height: 20px;
+                transform: scale(0.4);
+                background-color:rgb(10, 10, 15);
+                border-radius: 50%;
+                animation: circle 3s linear forwards infinite alternate;
+                animation-delay: 0.5s * $i;
+            }
+        }
+        
+
+        @keyframes loading{
+            0%{
+                transform: translateX(-50%) rotate(0deg);
+            }
+            100%{
+                transform: translateX(-50%) rotate(360deg);
+            }
+        }
+
+        @keyframes circle{
+            0%{
+                transform: scale(0.4);
+            }
+            100%{
+                transform: scale(1.2);
+            }
+        }
+    }
+
+    .loading-text{
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%); 
+        width: 90%;
+        height: 90%;
+        font-size: 1.5em;
+        font-weight: bold;
+        background-color: rgba(255, 255, 96, 0.879);
+        border-radius: 50%;
+        @include flex(row);
+    }
+}

@@ -1,0 +1,228 @@
+#messages{
+
+    position: absolute;
+    top:50%;
+    left:0;
+    width: 100vw;
+    height: 50vh;
+    max-height: 100vh;
+    transform: translate(0%,-50%);
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    z-index: 10;
+    font-family: $font;
+    @include flex(column, flex-start, flex-start);
+
+    >div:first-child{
+        height: calc(100% - 45px);
+    }    
+
+    .tools{
+        position: absolute;
+        bottom: 10px;
+        left:10px;
+        @include flex(row);
+
+        >a,>div{
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;        
+            border: 2px solid black;
+            margin-right: 5px;
+            @include flex(row);
+        }
+
+        .trash{
+            background-color: red;
+        }
+
+        .answer{
+            color: green;
+            text-decoration: none;
+        }
+    }
+
+    .heading{
+        width:200px;        
+        height: 100%;
+        overflow-y: auto;
+        text-align: center;
+    }
+
+    .mail{
+        width: calc(100% - 4px);
+        height: 40px;
+        @include flex(row);
+        margin:2px;
+        background-color: rgb(192, 255, 226);
+        cursor: pointer;
+    }
+
+    .mail:hover{
+        background-color: rgb(250, 250, 98);
+    }
+
+    .new{
+        background-color: rgb(255, 192, 192);
+    }
+
+    .readContainer{
+        display: none;
+        position: absolute;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100%;    
+    }
+
+    .arrow{
+        display:none;
+        position: absolute;
+        top:-1.5em;
+        right: 1.5em;
+        width: 1.5em;
+        height: 1.5em;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        color: black;
+    }
+
+    .block{
+        display: flex;
+    }
+
+    .read{
+        width: 100%;
+        height: 100%;
+        padding: 5px;        
+        background-color: rgb(221, 246, 253);
+        overflow-y: auto;
+    }
+
+    .close{
+        position: absolute;
+        top: -1.5em;
+        right: 0;
+        background-color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        width: 1.5em;
+        height: 1.5em;
+        @include flex(row);
+        text-decoration: none;
+    }
+    
+}
+
+.mail-container{
+    width: 1.4em;
+    height: 1.4em;
+    position: relative;
+    @include flex(row);
+    margin: 2px;
+
+    .circle{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: conic-gradient(
+            #fab1b1 0%,
+            #fab1b1 33%,
+            rgb(229, 229, 253) 33%,
+            rgb(229, 229, 253) 66%,
+            rgb(250, 239, 204) 66%,
+            rgb(250, 239, 204) 100%
+        );
+        animation: alert 2s linear forwards infinite;
+        z-index:-1;
+    }
+
+    @keyframes alert{
+        0%{
+            transform: rotate(0deg);
+        }
+        100%{
+            transform: rotate(360deg);
+        }
+    }
+
+    .new-mails{
+        width: 75%;
+        height: 75%;
+        font-size: 0.8em;
+        text-align: center;
+        line-height: 140%;
+        background-color: rgb(128, 229, 255);
+        border-radius: 50%;
+        display: inline-block;
+    }
+}
+
+
+
+@media screen and (min-width: 1200px){      
+    
+    #messages{
+        left:50%;
+        transform: translate(-50%,-50%);
+        width: 50vw;
+        height: 450px;
+        max-height: calc(90vh - 1.5em);
+        @include flex(row, flex-start, flex-start);
+
+        >div:first-child{
+            border-right: 2px solid black;
+        }
+
+        .block{
+            display: none;
+        }
+
+        .readContainer{
+            display: flex;
+            position: relative;
+            width: calc(80% - 10px);
+            height: 100%;        
+            margin-left:10px;
+        }
+
+        .close{
+            top: -1.5em;
+            right: -1.5em;
+            background-color: white;
+        }
+    }  
+}
+
+@media (orientation: landscape) and (max-width: 1199px){
+    #messages{
+        top:0%;
+        left:0%;
+        transform: translate(0,0);
+        height: 100vh;
+        @include flex(row, flex-start, flex-start);
+
+        >div:first-child{
+            border-right: 2px solid black;
+        }
+
+        .block{
+            display: none;
+        }
+
+        .readContainer{
+            display: flex;
+            position: relative;
+            width: calc(80% - 10px);
+            height: 100%;        
+            margin-left:10px;
+        }
+
+        .close{
+            top: 0;
+            right: 0;
+        }
+    } 
+}

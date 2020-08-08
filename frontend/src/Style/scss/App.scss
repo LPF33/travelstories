@@ -1,0 +1,56 @@
+*{
+    padding:0;
+    margin:0;
+    border:0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+$font : 'MuseoModerno', cursive, sans-serif;
+
+@mixin flex($direction, $align : center, $justify : center){
+    display: flex;
+    flex-direction: $direction;
+    align-items:$align;
+    justify-content: $justify;
+}
+
+@mixin close-button{
+    position: absolute;
+    top:10px;
+    right: 10px;
+    width: 1.5em;
+    height: 1.5em;
+    font-size: 1.5rem;
+    text-decoration: none;
+    border-radius: 50% 10px 50% 50%;
+    background-color: white;
+    color: black;
+    @include flex(row);
+}
+
+@function text-color($color){
+    @if(lightness($color)>70){
+        @return black;
+    }@else{
+        @return white;
+    }
+}
+
+@import 'authentication';
+@import 'map';
+@import 'menu';
+@import 'addstory';
+@import 'storyboard';
+@import 'readstory';
+@import 'account';
+@import 'messages';
+@import 'loading';
+@import 'friends';
+@import 'searchbar';
+@import 'sendmessage';

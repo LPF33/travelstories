@@ -1,0 +1,126 @@
+#read-story{
+    position: absolute;
+    top:50%;
+    left:50%;
+    height: 100vh;
+    transform: translate(-50%,-50%);
+    background-color: rgb(255, 255, 255);
+    z-index: 3;
+    font-family: $font;
+
+    .close{
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        width: 1.5em;
+        height: 1.5em;
+        @include flex(row);
+        text-decoration: none;
+    }
+
+    img{        
+        width:100vw;
+        height: 40vh;
+        object-fit: cover;
+    }
+    
+    .content{
+        width: 100vw;
+        height: calc(60vh - 50px);
+
+        .box1{
+            height:15%;
+            border-bottom: 2px solid black;
+            background-color: #fab1b1;  
+            text-align: center;
+            padding: 2px;
+        }
+        .box2{
+            height:25%;
+            padding: 2px;
+            h5{
+                font-size: 0.7em;
+            }
+        }
+        .box3{
+            height:45%;
+            padding: 2px;
+            border-bottom: 2px solid black;
+            border-top:2px solid black;
+            font-size: 0.8em;
+            overflow-y: auto;
+            background-color: rgb(229, 229, 253);
+        }
+        .box4{
+            height:15%;
+            padding:2px;
+            @include flex(row,center, flex-start);
+        }
+    }
+}
+
+@media screen and (min-width: 1200px){    
+    #read-story{
+        @include flex(row);
+        max-height: 70vh;
+
+        .close{
+            top: -1.5em;
+            right: -1.5em;
+            background-color: white;
+        }
+
+        img{
+            width:70vh;
+            height: 70vh;
+            object-fit: cover;
+        }
+
+        .content{
+            max-width: 25vw;
+            height: 70vh;
+
+            .box1{height:10%}
+            .box2{
+                height:30%;
+                h5{
+                    font-size: 0.9em;
+                }
+            }
+            .box3{height:50%}
+            .box4{
+                height:10%;
+                @include flex(row,center, center);
+            }
+        }
+        
+        
+    }
+}
+
+@media (orientation: landscape) and (max-width: 1199px){    
+    #read-story{
+        @include flex(row);
+        height: 100vh;
+        width: 100vw;
+
+        img{
+            width:50vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        .content{            
+            width: 50vw;
+            height: 100vh;
+
+            .box4{
+                @include flex(row,center, center);
+            }
+        }      
+        
+    }
+}

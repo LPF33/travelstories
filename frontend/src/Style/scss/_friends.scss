@@ -1,0 +1,167 @@
+#friendsboard{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    font-family: $font;  
+    z-index:4;
+
+    .header{
+        position: fixed;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 60px;
+        background-color: white;        
+        border-bottom: 2px solid black;
+        padding-left: 5px;
+        @include flex(row);
+
+        .searchbar{
+            margin-left: 20px;
+        }
+    }
+
+    
+    
+    a{
+        color: black;
+        text-decoration: none;                      
+    }
+    
+    .link{
+        position: fixed;
+        bottom: 0;
+        right: 0;    
+        width: 70px;
+        height: 70px;       
+        cursor: pointer;
+        @include flex(row);
+        background-color: rgb(8, 33, 143);
+        border-top-left-radius: 10px;
+        z-index: 5;
+        
+        .icon{
+            transform: scale(2.5);
+            color: white;
+        }  
+        
+    }
+
+    .whiteline{
+        position: fixed;
+        bottom:0;
+        left:0;
+        width: 100%;
+        height: 70px;
+        background-color: white;
+    }
+
+    .board{
+        position: absolute;
+        top:60px;
+        display: grid;
+        width: 100%;
+        height: calc(100% - 70px - 60px);
+        $width: calc(50% - 2.5px);
+        grid-template-columns: repeat(2, $width);
+        grid-auto-rows: auto;
+        grid-gap:5px;
+        overflow-y: auto;
+
+        >div{
+            position: relative;
+        }        
+
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h2{
+            position: absolute;
+            bottom:0;
+            left:0;
+            padding:2px;
+            width:100%;
+            border-bottom: 2px solid black;
+            background-color: white;
+        }
+        
+        .no-found{
+            font-size: 2em;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+    }
+}
+
+.select-bar{
+    position: absolute;
+    top: 10px;
+    left:10px;
+    @include flex(row,flex-start);
+
+    .icon, .friendbutton{
+        width: 27px;
+        height: 27px;
+        @include flex(row);
+        border-radius: 50%;        
+        background-color: white;
+        margin: 0 5px 5px 0;
+        cursor: pointer;
+        border: 2px solid black;        
+    }
+    .user{background-color: rgb(159, 159, 255);}
+    .getFriends{background-color: rgb(243, 193, 127);}
+    .game{background-color: rgb(244, 253, 122);}
+    .video{background-color: rgb(159, 255, 239);}
+
+    .icon:hover, .friendbutton:hover{
+        border:2px solid rgb(247, 247, 147);
+    }
+}
+
+@media screen and (min-width: 960px){
+    #friendsboard{
+
+        .whiteline{
+            position: fixed;
+            bottom:0;
+            left: calc(100vw - 80px);
+            width: 80px;
+            height: 100%;
+            background-color: white;
+        }
+
+        .board{
+            top:60px;
+            display: grid;
+            width: calc(100vw - 80px);
+            height: calc(100% - 60px);
+            $width: calc(20% - 5px);
+            grid-template-columns: repeat(5, $width);
+        }
+    }
+    .select-bar{
+    
+        .icon, .friendbutton{
+            width: 40px;
+            height: 40px;
+        }
+    }
+}
+
+@media screen and (max-width: 960px) and (orientation: landscape){
+    #friendsboard{
+
+        .board{
+            $width: calc(33% - 1px);
+            grid-template-columns: repeat(3, $width);
+        }
+    }
+}

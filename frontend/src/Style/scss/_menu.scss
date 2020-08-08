@@ -1,0 +1,116 @@
+#Menu{
+    position: fixed;
+    bottom:0;
+    left:50%;
+    height: 50px;
+    transform: translateX(-50%);
+    z-index:10;
+    font-family: $font;
+    font-size:1.5em;
+
+    img{
+        width: 50px;
+    } 
+    
+    .alert{
+        position: absolute;
+        bottom:0;
+        left:0;
+        transform: translate(-100%,-50%);
+    }
+
+    #menu-bar{
+        position: fixed;
+        right:50%;
+        bottom: 50px;
+        @include flex(column, center, space-evenly);
+        transition: transform 0.6s ease-in;
+        border-radius: 10px 10px 0 0; 
+        height: 70vh;
+        width: 60vw;    
+        z-index: 10;        
+        overflow-y: auto;    
+
+        &.hide{
+            transform: translateY(130%) translateX(50%);
+        }
+
+        &.show{
+            visibility: visible;   
+            transform: translateY(0) translateX(50%);                       
+        }
+
+        a,button{
+            text-decoration: none;
+            width:100%;
+            cursor: pointer;
+            text-align: center;
+            @include flex(row);
+            background-color: transparent;
+            font-family: $font;
+            font-size:1em;
+        }
+        .user{
+            width: 100%;
+            text-align: center;
+            border-bottom: 2px solid black;
+            @include flex(row);
+        }
+
+        >a:hover, >button:hover{            
+            background-color: rgb(214, 211, 181);            
+        }
+
+        img{
+            width: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+    }
+}
+
+@media screen and (min-width: 960px){
+    #Menu{
+        top:0;
+        left:100vw;
+        height: 60px;
+        transform: translateX(-110%);
+        font-size:2em;
+    
+        img{
+            width: 60px;
+        }
+
+        .alert{
+            transform: translate(-100%,50%);
+        }
+
+        #menu-bar{
+            right: 0;
+            top: 100%; 
+            height: 80vh;
+            width: 20vw;
+            border-radius: 10px 0 0 10px; 
+    
+            &.hide{
+                transform: translateX(110%);
+            }
+    
+            &.show{
+                visibility: visible;   
+                transform: translateX(0);                       
+            }
+        }
+    }
+}
+
+@media screen and (orientation:landscape) and (max-width: 960px) and (max-height:490px){
+    #Menu{
+        #menu-bar{
+            overflow-y: auto;
+            height: calc(100vh - 50px);
+
+            @include flex(column, center, start);
+        }
+    }
+}

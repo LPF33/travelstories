@@ -1,0 +1,80 @@
+{
+  "name": "travelstoriesmap",
+  "version": "1.1.0",
+  "engines": {
+    "node": "12.x"
+  },
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "concurrently \"npm run server\" \"npm run frontend\"",
+    "server": "nodemon server.js",    
+    "frontend": "npm start --prefix frontend",
+    "frontend-install": "npm install --prefix frontend",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd frontend && npm install && npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.728.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "concurrently": "^5.2.0",
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^4.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.27",
+    "multer": "^1.4.2",
+    "node-geocoder": "^3.27.0",
+    "socket.io": "^2.3.0",
+    "uid-safe": "^2.1.5"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "commonjs": true,
+      "es6": true,
+      "node": true
+    },
+    "plugins": [
+      "react"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 2018
+    },
+    "rules": {
+      "indent": [
+        "error",
+        4,
+        {
+          "SwitchCase": 4
+        }
+      ],
+      "semi": [
+        "error",
+        "always"
+      ],
+      "no-console": 0,
+      "no-inner-declarations": 0,
+      "no-sparse-arrays": 0,
+      "no-unexpected-multiline": 0,
+      "no-unsafe-finally": 0,
+      "react/prop-types": 0,
+      "react/display-name": 0
+    }
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
