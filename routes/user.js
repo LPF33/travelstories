@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const Mail = require("../models/mail");
+const Friends = require("../models/friends");
+const TravelPlace = require("../models/location");
 const uploader = require("../config/multer");
 const S3 = require("../config/S3");
 const {hash} = require("../config/bcrypt");
@@ -133,6 +135,35 @@ router.delete("/mail/:id", async(req,res) => {
         res.json({success:true});
     }catch(error){
         res.status(500).send("Server error");
+    }
+});
+
+router.delete("/", async(req,res) => {
+    const myUserId = req.user.id;
+
+    try{
+        await Mail.deleteMany({$or:[{sender:myUserId},{receiver:myUserId}]});
+        await Friends.deleteMany({$or:[{to_id:myUserId,},{from_id:myUserId}]});
+        const userPicture = await User.findByIdAndDelete(myUserId, {picture:1, _id:0}).lean();
+        const travelPictures = await TravelPlace.find({user: myUserId}, {picture:1, _id:0}).lean();
+        const pictures = [userPicture, ...travelPictures];
+        await TravelPlace.deleteMany({user: myUserId});
+
+        for(let item of pictures){
+            const pictureFilePath = new URL(item.picture);
+            const pictureFile = pictureFilePath.pathname.slice(1);
+            await S3.deleteFromS3(pictureFile);
+        }
+
+        res.json({
+            success: true,
+            pictures
+        })
+    }catch(error){
+        res.json({
+            success:false,
+            error: "Server error"
+        })
     }
 });
 

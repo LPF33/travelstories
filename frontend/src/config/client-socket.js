@@ -13,6 +13,8 @@ const socketToken = token => {
             window.localStorage.removeItem("register");
         };
     })
+
+    socket.on("new-mail", () => console.log("hhhh"));
 }
 
 export default socket;

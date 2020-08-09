@@ -1,6 +1,7 @@
 import React, {useContext, useState, useEffect} from "react";
 import {UserContext} from "../context/UserContext";
 import {ThemeContext} from "../context/ThemeContext";
+import {AuthContext} from "../context/AuthContext";
 import {Link, useHistory} from "react-router-dom";
 import axios from "../config/axios";
 import {checkPictureFile, checkEmail, checkName, checkPassword} from "../config/validation";
@@ -12,6 +13,8 @@ const Account = () => {
     const {userState, loadUser, changeState} = useContext(UserContext);
     const {lightTheme, light, dark} = useContext(ThemeContext);
     const theme = lightTheme ? light : dark;
+    
+    const {logout} = useContext(AuthContext);
 
     const [data, setData] = useState({id:"",name:"",email:"",password:""});
     const [picture, setPicture] = useState("");
@@ -109,7 +112,15 @@ const Account = () => {
     };
 
     const deleteAccount = async() => {
-        setError("Not working at the moment!");
+        changeState("loading");
+        const result = await axios.delete("/api/user");
+        if(result.data.success){
+            changeState("loading");
+            logout();
+        }else{
+            changeState("loading");
+            setError(result.data.error);
+        }
     };
 
     return(

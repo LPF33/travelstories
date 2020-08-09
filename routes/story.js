@@ -70,6 +70,7 @@ router.post("/pictureedit", uploader.single("file"), async(req,res) => {
 router.get("/mystories", async(req,res) => {
     try{
         const stories = await TravelPlace.find({user: req.user.id})
+            .populate("user","name")
             .sort({created_at: "desc"})
             .limit(20)
             .lean();

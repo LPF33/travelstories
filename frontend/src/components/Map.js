@@ -35,6 +35,29 @@ const Map = () => {
     const [search, setSearch] = useState("");
     const [foundData, setFoundData] = useState([]);
 
+    const storeStories = () => {
+        map.current.addLayer({
+            id: "places",
+            type: "symbol",
+            source: {
+                type: "geojson",
+                data:{
+                    type:"FeatureCollection",
+                    features:allStories
+                }
+            },
+            layout:{
+                'icon-image': '{icon}-15',
+                'icon-size': 1.5,
+                'icon-allow-overlap': true,
+                'text-field':"{title}",
+                "text-font":["Open Sans Semibold", "Arial Unicode MS Bold"],
+                "text-offset":[0, 0.9],
+                "text-anchor":"top"
+            }
+        });
+    };
+
     useEffect(() => {
 
         map.current = new mapboxgl.Map({
@@ -105,30 +128,6 @@ const Map = () => {
     },[goto]);
 
     useEffect(() => {
-
-        const storeStories = () => {
-            map.current.addLayer({
-                id: "places",
-                type: "symbol",
-                source: {
-                    type: "geojson",
-                    data:{
-                        type:"FeatureCollection",
-                        features:allStories
-                    }
-                },
-                layout:{
-                    'icon-image': '{icon}-15',
-                    'icon-size': 1.5,
-                    'icon-allow-overlap': true,
-                    'text-field':"{title}",
-                    "text-font":["Open Sans Semibold", "Arial Unicode MS Bold"],
-                    "text-offset":[0, 0.9],
-                    "text-anchor":"top"
-                }
-            });
-        };
-
         map.current.on("load", storeStories);
 
         return () => map.current.off("load", storeStories);

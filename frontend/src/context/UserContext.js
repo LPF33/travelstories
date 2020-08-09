@@ -50,7 +50,10 @@ export default class UserContextProvider extends Component{
     componentDidMount = () => {     
         this.loadUser();
         this.checkMails();
-        socket.on("new-mail", () => this.checkMails());     
+    }
+
+    componentWillUpdate = () => {
+        socket.on("new-mail", (data) => console.log(data)); 
     }
 
     componentWillUnmount = () => {

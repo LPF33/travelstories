@@ -12,20 +12,15 @@ const text = {
 
 export default function Welcome(){
     return(
-        <div className="authentication">
-            <img src="/pictures/mountain.JPG" alt="mountain"></img> 
-            <div>
-                <div id="welcome">
-                    <h1 className="headline">Travel Stories <i className="fas fa-mountain"></i></h1>
-                    <Card title="Search" icon="search" color="yellow" text={text.Search}/>
-                    <Card title="Share" icon="share-alt-square" color="rgb(250, 250, 198)" text={text.Share}/>
-                    <Card title="Connect" icon="network-wired" color="rgb(145, 126, 255)" text={text.Connect}/>
-                    <Card title="Save" icon="cloud" color="rgb(54, 197, 154)" text={text.Save}/>
-                    <Card title="Play"icon="play" color="rgb(255, 221, 126)" text={text.Play}/>
-                    <Card title="Talk" icon="users" color="rgb(255, 135, 126)" text={text.Talk}/>
-                    <SlideAuth type="first" before="/welcome/registration" after="/welcome/login"/>
-                </div>
-            </div>
+        <div id="welcome">
+            <h1 className="headline">Travel Stories <i className="fas fa-mountain"></i></h1>
+            <Card title="Search" icon="search" color="yellow" text={text.Search}/>
+            <Card title="Share" icon="share-alt-square" color="rgb(250, 250, 198)" text={text.Share}/>
+            <Card title="Connect" icon="network-wired" color="rgb(145, 126, 255)" text={text.Connect}/>
+            <Card title="Save" icon="cloud" color="rgb(54, 197, 154)" text={text.Save}/>
+            <Card title="Play"icon="play" color="rgb(255, 221, 126)" text={text.Play}/>
+            <Card title="Talk" icon="users" color="rgb(255, 135, 126)" text={text.Talk}/>
+            <SlideAuth type="first" before="/welcome/registration" after="/welcome/login"/>
         </div>
     );
 }

@@ -63,38 +63,33 @@ export default function Registration(){
     };
 
     return(
-        <div className="authentication">
-            <img src="/pictures/mountain.JPG" alt="mountain"></img>
+        <div id="registration">
             <div>
-                <div id="registration">
-                    <div>
-                        <h1>Travel Stories <i className="fas fa-mountain"></i></h1>
-                        <h3>Share your stories <i className="fas fa-plane"></i></h3>
-                        <div>
-                            {error.length>0 ? 
-                                error.map((item,index) => <h3 key={index} className="error">{item}</h3>)
-                                :
-                                <h3>Or just rummage <i className="fas fa-search-location"></i></h3>
-                            }    
-                        </div>
-                        <input type="text"  name="name" placeholder="Your Name" onChange={handleChange} value={data.name}/>
-                        <input type="text"  name="email" placeholder="Your email" onChange={handleChange} value={data.email}/>
-                        <input type="password"  name="password" placeholder="Your password" onChange={handleChange} value={data.password}/>
-                        <input type="password"  
-                            name="password2" 
-                            placeholder="Repeat password" 
-                            onChange={handleChange} value={data.password2}
-                            onKeyDown={e => {
-                                if(e.keyCode===13){
-                                    submit();
-                                }
-                            }}
-                        />
-                    </div>              
-                    <button type="button" onClick={submit}><h1>Registration</h1></button>
-                    <SlideAuth type="third" before="/welcome/login" after="/welcome"/> 
+                <h1>Travel Stories <i className="fas fa-mountain"></i></h1>
+                <h3>Share your stories <i className="fas fa-plane"></i></h3>
+                <div>
+                    {error.length>0 ? 
+                        error.map((item,index) => <h3 key={index} className="error">{item}</h3>)
+                        :
+                        <h3>Or just rummage <i className="fas fa-search-location"></i></h3>
+                    }    
                 </div>
-            </div>
+                <input type="text"  name="name" placeholder="Your Name" onChange={handleChange} value={data.name}/>
+                <input type="text"  name="email" placeholder="Your email" onChange={handleChange} value={data.email}/>
+                <input type="password"  name="password" placeholder="Your password" onChange={handleChange} value={data.password}/>
+                <input type="password"  
+                    name="password2" 
+                    placeholder="Repeat password" 
+                    onChange={handleChange} value={data.password2}
+                    onKeyDown={e => {
+                        if(e.keyCode===13){
+                            submit();
+                        }
+                    }}
+                />
+            </div>              
+            <button type="button" onClick={submit}><h1>Registration</h1></button>
+            <SlideAuth type="third" before="/welcome/login" after="/welcome"/> 
         </div>
     );
 }

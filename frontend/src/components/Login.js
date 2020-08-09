@@ -37,37 +37,32 @@ export default function Login(){
         }
     };
 
-    return(       
-        <div className="authentication">
-            <img src="/pictures/mountain.JPG" alt="mountain"></img> 
+    return(  
+        <div id="login">
             <div>
-                <div id="login">
-                    <div>
-                        <h1>Travel Stories <i className="fas fa-mountain"></i></h1>
-                        <div>
-                            {error.length>0 ? 
-                                error.map((item,index) => <h3 key={index} className="error">{item}</h3>)
-                                :
-                                <h3>Welcome and Start <i className="far fa-compass"></i></h3>
-                            }    
-                        </div>                
-                        <input type="text"  name="email" placeholder="Your email" onChange={handleChange} value={data.email}/>
-                        <input type="password"  
-                            name="password" 
-                            placeholder="Your password" 
-                            value={data.password}
-                            onChange={handleChange}
-                            onKeyDown={e => {
-                                if(e.keyCode===13){
-                                    submit();
-                                }
-                            }}
-                        />
-                    </div>              
-                    <button type="button" onClick={submit}><h1>Login</h1></button>
-                    <SlideAuth type="second" before="/welcome" after="/welcome/registration"/>
-                </div>
-            </div>
+                <h1>Travel Stories <i className="fas fa-mountain"></i></h1>
+                <div>
+                    {error.length>0 ? 
+                        error.map((item,index) => <h3 key={index} className="error">{item}</h3>)
+                        :
+                        <h3>Welcome and Start <i className="far fa-compass"></i></h3>
+                    }    
+                </div>                
+                <input type="text"  name="email" placeholder="Your email" onChange={handleChange} value={data.email}/>
+                <input type="password"  
+                    name="password" 
+                    placeholder="Your password" 
+                    value={data.password}
+                    onChange={handleChange}
+                    onKeyDown={e => {
+                        if(e.keyCode===13){
+                            submit();
+                        }
+                    }}
+                />
+            </div>              
+            <button type="button" onClick={submit}><h1>Login</h1></button>
+            <SlideAuth type="second" before="/welcome" after="/welcome/registration"/>
         </div>
     );
 }

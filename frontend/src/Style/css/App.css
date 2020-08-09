@@ -11,7 +11,7 @@ body {
   overflow: hidden;
 }
 
-.authentication {
+#authentication {
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -24,11 +24,11 @@ body {
   overflow: hidden;
 }
 
-.authentication img {
+#authentication img {
   height: 100%;
 }
 
-.authentication > div:nth-child(2) {
+#authentication > div:nth-child(2) {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -218,7 +218,7 @@ body {
 }
 
 @media screen and (min-width: 1024px) {
-  .authentication img {
+  #authentication img {
     width: auto;
     height: auto;
   }
