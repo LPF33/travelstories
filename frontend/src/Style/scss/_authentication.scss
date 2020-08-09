@@ -1,4 +1,4 @@
-#authentication{
+.authentication{
     position: relative;
     width: 100vw;
     height: 100vh;
@@ -151,7 +151,7 @@
 }
 
 @media screen and (min-width: 1024px){    
-    #authentication img{
+    .authentication img{
         width:auto;
         height: auto;        
     }

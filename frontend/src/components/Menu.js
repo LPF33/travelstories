@@ -16,7 +16,7 @@ const Menu = () => {
     const [showMenu, setShowMenu] = useState("hide");
 
     return(
-        <div id="Menu">
+        <div id="Menu" >
             <img src={theme.hamburger} alt="hamburgermenu" onClick={() => setShowMenu(showMenu==="show" ? "hide" : "show")}></img>
             {showMenu==="hide" && <div className="alert"><MessageAlert /></div>}
             

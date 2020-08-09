@@ -11,26 +11,27 @@ export default function MapContextProvider(props){
 
     const [goto, setGoto] = useState({longitude:"", latitude:""});
 
+    const updateStories = async() => {
+        const data = await axios.get(`/api/story/allstories`);
+        const result = data.data.stories.map(story => {
+            return{
+                type:"Feature",
+                geometry:{
+                    type:"Point",
+                    coordinates: [story.location.coordinates[0],story.location.coordinates[1]]
+                },
+                properties:{
+                    title: story.title.slice(0,15),
+                    link: `/readstory/${story._id}`,
+                    icon: "beach"
+                }
+            };
+        });
+        setAllStories(result);
+    }
+
     useEffect(() => {
-        (async() => {
-            const data = await axios.get(`/api/story/allstories`);
-            const result = data.data.stories.map(story => {
-                return{
-                    type:"Feature",
-                    geometry:{
-                        type:"Point",
-                        coordinates: [story.location.coordinates[0],story.location.coordinates[1]]
-                    },
-                    properties:{
-                        title: story.title.slice(0,15),
-                        link: `/readstory/${story._id}`,
-                        icon: "beach"
-                    }
-                };
-            });
-            setAllStories(result); 
-        })();   
-            
+        updateStories();  
     },[]);
     
     useEffect(() => {
@@ -43,7 +44,7 @@ export default function MapContextProvider(props){
     },[coordinates]);
 
     return(
-        <MapContext.Provider value={{coordinates, setCoordinates, formatAddress, setFormatAddress, goto, setGoto, allStories}}>
+        <MapContext.Provider value={{coordinates, setCoordinates, formatAddress, setFormatAddress, goto, setGoto, allStories, updateStories}}>
             {props.children}
         </MapContext.Provider>
     );

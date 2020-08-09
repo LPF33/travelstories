@@ -36,8 +36,8 @@ const Storyboard = (props) => {
 
 
     return(
-        <div id="storyboard">            
-            <div className="headline">Storyboard</div>
+        <div id="storyboard" style={{background:theme.backGround}}>            
+            <div className="headline" style={{background:theme.backGround, color:theme.text}}>Storyboard</div>
             <div className="body">
                 <div>
                     <div className="public card" onClick={() => setPublic("public")}>Public</div>
@@ -96,7 +96,7 @@ const StoryboardMenu = (props) => {
 
     const {user, coordinates, picture, story, read} = props;
     const {userState, changeState} = useContext(UserContext);
-    const {setGoto} = useContext(MapContext);    
+    const {setGoto, updateStories} = useContext(MapContext);    
 
     const check = user === userState.user._id;
 
@@ -111,6 +111,7 @@ const StoryboardMenu = (props) => {
         if(result.data.success){
             changeState("loading");
             changeState("editStory",null);
+            updateStories();
             changeState("deleteStatus" , Math.random()*100000);
             if(location.pathname.startsWith("/readstory")){
                 history.replace("/");

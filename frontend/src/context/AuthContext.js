@@ -1,40 +1,40 @@
-import React, {createContext, useState, useEffect} from "react";
-import {getToken} from "../config/axios";
+import React, {createContext, useState, useEffect, useRef} from "react";
 import {socketToken} from "../config/client-socket";
 
 export const AuthContext = createContext();
 
 export default function AuthContextProvider(props){
 
+    let timeoutId = useRef();
+
     const [token, setToken] = useState(null);
 
     const logout = async() => {        
         window.localStorage.removeItem("travelstories");
-        window.location.replace("/");
+        clearTimeout(timeoutId.current);
+        window.location.replace("/welcome");
     };
 
     useEffect(() => {
         if(token){
-            let jwt;
+            
             try{
-                jwt = JSON.parse(atob(token.split('.')[1]));
+                const jwt = JSON.parse(atob(token.split('.')[1]));
                 if(jwt.exp && (Date.now()>jwt.exp*1000)){
                     logout();
                 }else{
                     const time = jwt.exp*1000-Date.now();
-                    console.log(time);
-                    setTimeout(() => logout(),time);
+                    timeoutId.current = setTimeout(() => logout(),time);
                 }
             }catch(err){
                 logout();
-            }
-
-            getToken(token);
+            }           
             
         }else if(window.localStorage.getItem("travelstories")){
-            getToken(window.localStorage.getItem("travelstories"));
             setToken(window.localStorage.getItem("travelstories"));
         }
+
+        return () => clearTimeout(timeoutId.current);
         
     },[token]);
 

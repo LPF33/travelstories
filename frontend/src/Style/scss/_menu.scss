@@ -29,7 +29,8 @@
         height: 70vh;
         width: 60vw;    
         z-index: 10;        
-        overflow-y: auto;    
+        overflow-y: auto;  
+        box-shadow: 0 0 3px black;  
 
         &.hide{
             transform: translateY(130%) translateX(50%);

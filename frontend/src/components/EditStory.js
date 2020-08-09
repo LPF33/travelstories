@@ -11,7 +11,7 @@ const EditStory = (props) => {
     const {storyid}  = props.match.params;
     const history = useHistory();
 
-    const {coordinates, setCoordinates, formatAddress, setFormatAddress} = useContext(MapContext);
+    const {coordinates, setCoordinates, formatAddress, setFormatAddress, updateStories} = useContext(MapContext);
     const {lightTheme, light, dark} = useContext(ThemeContext);
     const theme = lightTheme ? light : dark;
     const {userState, changeState} = useContext(UserContext);
@@ -86,6 +86,7 @@ const EditStory = (props) => {
                 const result = await axios.post(`/api/story/pictureedit`,formData);
                 if(result.data.success){
                     setFile(null);
+                    updateStories();
                     sendData(result.data.photoUrl);
                 }else{
                     changeState("loading");

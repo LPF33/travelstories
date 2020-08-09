@@ -5,8 +5,7 @@ const IO = io => {
 
     io.on("connection", socket => {
 
-        const user = socket.decoded;
-        console.log(user);
+        const user = socket.decoded; 
         console.log(socket.id, "is connected");
 
         if(!socket.decoded){        
@@ -14,7 +13,6 @@ const IO = io => {
         }    
 
         socket.on("register", async() => {
-            console.log("register");
             const m = new Mail({receiver: user.id, message: SystemMessages.register(user.name), system: true, kind: "system"});
             await m.save();
             socket.emit("new-mail");

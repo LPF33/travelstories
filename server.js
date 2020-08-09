@@ -18,7 +18,8 @@ connectDB();
 //Initialize Express
 const app = express();
 
-app.use(express.static("frontend/build"));
+//Static build file
+app.use(express.static(path.join(__dirname + "/frontend/build")));
 
 //CORS
 const options = {origin: false, allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, csrf-token", credentials: true};
@@ -29,7 +30,15 @@ app.use(express.json());
 app.use(compression());
 app.use(bodyParser.urlencoded({extended: false}));
 
-//Connect server, cookie-session with Socket.io
+//Csurf
+/*
+app.use(csurf());
+app.use(function(req, res, next){
+    res.cookie('csrftoken', req.csrfToken());
+    next();
+});*/
+
+//Connect server with Socket.io
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 io.use(function(socket, next){
@@ -48,14 +57,6 @@ io.use(function(socket, next){
 })
 require("./WebSocket/server-socket")(io);
 
-//Csurf
-/*
-app.use(csurf());
-app.use(function(req, res, next){
-    res.cookie('csrftoken', req.csrfToken());
-    next();
-});*/
-
 //Express Routing
 app.use("/api/auth",require("./routes/auth"));
 app.use("/api/map",require("./routes/map"));
@@ -63,9 +64,9 @@ app.use("/api/story",require("./routes/story"));
 app.use("/api/user",require("./routes/user"));
 app.use("/api/friends",require("./routes/friends"));
 
-
-app.get("*", (request, response) => {
-    response.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));     
+app.get('*', function (req, res) {
+   res.sendFile(path.join(__dirname + "/frontend/build/index.html"));
 });
+
 
 server.listen(process.env.PORT || 8080);

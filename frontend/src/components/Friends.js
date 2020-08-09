@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from "react";
 import {useLocation, Link} from "react-router-dom";
 import {UserContext} from "../context/UserContext";
+import {ThemeContext} from "../context/ThemeContext";
 import Searchbar from "./Searchbar";
 import axios from "../config/axios";
 import socket from "../config/client-socket";
@@ -12,6 +13,8 @@ const Friends = () => {
     let locationPath = location.pathname === "/users";
 
     const {userState} = useContext(UserContext);
+    const {lightTheme, light, dark} = useContext(ThemeContext);
+    const theme = lightTheme ? light : dark;
 
     const [users, setUsers] = useState([]);
 
@@ -21,9 +24,9 @@ const Friends = () => {
     },[location, userState.search]);
 
     return(
-        <div id="friendsboard">
+        <div id="friendsboard" style={{background:theme.backGround}}>
 
-            <div className="header">
+            <div className="header" style={{background:theme.backGround}}>
                 <h2>{locationPath ? "Users:" : "Your Friends"}</h2>
                 <div className="searchbar"><Searchbar useCase={locationPath ? "users" : "friends"}/></div>
             </div>
@@ -46,7 +49,7 @@ const Friends = () => {
                 </div> 
             </Link>
 
-            <div className="whiteline"></div>
+            <div className="whiteline" style={{background:theme.backGround}}></div>
         </div>
     );
 };

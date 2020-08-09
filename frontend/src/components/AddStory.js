@@ -10,7 +10,7 @@ const AddStory = () => {
 
     const history = useHistory();
 
-    const {coordinates, setCoordinates, formatAddress} = useContext(MapContext);
+    const {coordinates, setCoordinates, formatAddress, updateStories} = useContext(MapContext);
     const {lightTheme, light, dark} = useContext(ThemeContext);
     const theme = lightTheme ? light : dark;
     const {changeState} = useContext(UserContext);
@@ -50,6 +50,7 @@ const AddStory = () => {
                 });
                 if(result.data.success){
                     changeState("loading");
+                    updateStories();
                     history.replace("/storyboard");
                 }else{
                     changeState("loading");

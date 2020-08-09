@@ -7,11 +7,11 @@ const profilePictureStorage = multer.diskStorage({
         callback(null, __dirname + '/uploads');
     },
     filename: function (request, file, callback) {
-        if (!request.session.user._id) {
+        if (!request.user.id) {
             callback("No user session.", "");
         } else {
             uidSafe(8).then((uid) => {
-                const userId = request.session.user._id;
+                const userId = request.user.id;
                 const extension = path.extname(file.originalname);
 
                 callback(null, `user_${userId}_${uid}${extension}`);

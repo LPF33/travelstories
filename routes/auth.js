@@ -6,7 +6,7 @@ const validation = require("../config/validationServer");
 const jwt = require("jsonwebtoken");
 
 function generateAccessToken(user){
-    return jwt.sign(user,process.env.ACCESS_TOKEN_SECRET, {expiresIn: '10s'});
+    return jwt.sign(user,process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
 }
 
 router.post("/register", async(req,res) => {

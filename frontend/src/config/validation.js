@@ -47,10 +47,10 @@ const checkPassword  = password => {
 };
 
 const checkTitle  = title => {
-    if(title.match(/^([a-zA-Z\s]){1,15}$/)){
+    if(title.match(/^([a-zA-Z0-9\s]){1,15}$/)){
         return [true,""];
     }else{
-        return [false,"Title must be letters and spaces only, max. 15 characters!"];
+        return [false,"Title must be letters,numbers and spaces only, max. 15 characters!"];
     }
 };
 

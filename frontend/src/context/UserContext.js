@@ -41,6 +41,11 @@ export default class UserContextProvider extends Component{
                         default: break;
         }   
     }
+    
+    checkMails = async() => {
+        const result = await axios.get(`/api/user/newmails`);
+        this.setState({messages:result.data.emails});
+    }
 
     componentDidMount = () => {     
         this.loadUser();
@@ -50,12 +55,7 @@ export default class UserContextProvider extends Component{
 
     componentWillUnmount = () => {
         socket.disconnect();
-    }
-
-    checkMails = async() => {
-        const result = await axios.get(`/api/user/newmails`);
-        this.setState({messages:result.data.emails});
-    }
+    }    
 
     render(){
 
