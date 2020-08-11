@@ -5,13 +5,14 @@ let instance = axios.create({
     withCredentials: true
 });
 
-const updateAxios  = (token="") => {
+instance.interceptors.response.use(function (response) { 
+    return response;
 
-    instance.interceptors.response.use(function (response) {
-        return response;
-      }, function (error) {
-            return Promise.reject(error);
+    }, function (error) {
+        return Promise.reject(error);
     });
+
+const updateAxios  = (token="") => {    
 
     instance.interceptors.request.use(
         config => {

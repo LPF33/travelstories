@@ -1,5 +1,6 @@
 import React, {createContext, useState, useEffect, useRef} from "react";
 import {socketToken} from "../config/client-socket";
+import axios from "../config/axios";
 
 export const AuthContext = createContext();
 
@@ -15,7 +16,7 @@ export default function AuthContextProvider(props){
         window.location.replace("/welcome");
     };
 
-    useEffect(() => {
+    useEffect(() => { 
         if(token){
             
             try{
@@ -24,7 +25,7 @@ export default function AuthContextProvider(props){
                     logout();
                 }else{
                     const time = jwt.exp*1000-Date.now();
-                    timeoutId.current = setTimeout(() => logout(),time);
+                    timeoutId.current = setTimeout(() => logout(),time);                    
                 }
             }catch(err){
                 logout();

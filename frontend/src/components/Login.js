@@ -18,7 +18,8 @@ export default function Login(){
         setData(newDate);
     };
 
-    const submit = async() => {
+    const handleSubmit = async(e) => {
+        e.preventDefault();
         if(data.email && data.password){
             const check = await axios.post(`/api/auth/login`, data);
             if(check.data.success){
@@ -39,7 +40,7 @@ export default function Login(){
 
     return(  
         <div id="login">
-            <div>
+            <form onSubmit={handleSubmit}>
                 <h1>Travel Stories <i className="fas fa-mountain"></i></h1>
                 <div>
                     {error.length>0 ? 
@@ -54,14 +55,16 @@ export default function Login(){
                     placeholder="Your password" 
                     value={data.password}
                     onChange={handleChange}
+                    autoComplete="off"
                     onKeyDown={e => {
                         if(e.keyCode===13){
-                            submit();
+                            handleSubmit(e);
                         }
                     }}
                 />
-            </div>              
-            <button type="button" onClick={submit}><h1>Login</h1></button>
+                <input type="submit" value="Login"/>
+            </form>              
+            
             <SlideAuth type="second" before="/welcome" after="/welcome/registration"/>
         </div>
     );

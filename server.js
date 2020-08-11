@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const compression = require('compression');
 const bodyParser = require("body-parser");
+var cookieParser = require('cookie-parser');
 const csurf = require("csurf");
 const helmet = require('helmet');
 const connectDB = require("./config/mongoDB");
@@ -25,18 +26,37 @@ app.use(express.static(path.join(__dirname + "/frontend/build")));
 const options = {origin: false, allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, csrf-token", credentials: true};
 app.use(cors(options));
 
-app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+    directives:{
+      defaultSrc:["'self'", "http://localhost:8080/"],
+      scriptSrc:["'self'", "'unsafe-inline'",'cdnjs.cloudflare.com',"https://api.tiles.mapbox.com", "blob:","mapbox.com","https://api.mapbox.com/"],
+      styleSrc:["'self'", "'unsafe-inline'",,'fonts.googleapis.com','fonts.gstatic.com','cdnjs.cloudflare.com',"https://api.tiles.mapbox.com","mapbox.com","https://api.mapbox.com/"],
+      fontSrc:["'self'", "'unsafe-inline'",'fonts.googleapis.com','fonts.gstatic.com','cdnjs.cloudflare.com',"https://api.tiles.mapbox.com","mapbox.com","https://api.mapbox.com/"],
+      "img-src": ["'self'", 'data:','https://api.mapbox.com/','https://imageboardlpf.s3.eu-central-1.amazonaws.com'],
+      "connect-src":["'self'","mapbox.com","https://api.mapbox.com/",'https://events.mapbox.com/']
+    }}));
+app.use(helmet.dnsPrefetchControl());
+app.use(helmet.expectCt());
+app.use(helmet.frameguard());
+app.use(helmet.hidePoweredBy());
+app.use(helmet.hsts());
+app.use(helmet.ieNoOpen());
+app.use(helmet.noSniff());
+app.use(helmet.permittedCrossDomainPolicies());
+app.use(helmet.referrerPolicy());
+app.use(helmet.xssFilter());
+
 app.use(express.json());
 app.use(compression());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser())
 
 //Csurf
-/*
-app.use(csurf());
+app.use(csurf({cookie:true}));
 app.use(function(req, res, next){
     res.cookie('csrftoken', req.csrfToken());
     next();
-});*/
+});
 
 //Connect server with Socket.io
 const server = require("http").createServer(app);
@@ -64,7 +84,7 @@ app.use("/api/story",require("./routes/story"));
 app.use("/api/user",require("./routes/user"));
 app.use("/api/friends",require("./routes/friends"));
 
-app.get('*', function (req, res) {
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + "/frontend/build/index.html")); 
 });
 

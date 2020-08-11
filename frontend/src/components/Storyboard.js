@@ -125,7 +125,7 @@ const StoryboardMenu = (props) => {
             <Link to="/" className="link-location" onClick={() => setGoto({longitude:coordinates[0], latitude:coordinates[1]})}><i className="fas fa-map-marker-alt"></i></Link>
             {!check && <Link to={`/storyboard/${user}`}><i className="fas fa-user-alt"></i></Link>}
             {check && <Link to={`/story/edit/${story._id}`} onClick={() => changeState("editStory", story )} className="edit-link"><i className="far fa-edit"></i></Link>}
-            {check && <div><i className="fas fa-trash-alt delete" onClick={deleteStory}></i></div>}
+            {check && <div onClick={deleteStory}><i className="fas fa-trash-alt delete" ></i></div>}
         </div>
     );
 };

@@ -71,24 +71,25 @@ body {
   height: 100%;
 }
 
-#login > div:first-child {
+#login > form {
   display: grid;
-  grid-template-rows: 5fr 1fr 1fr 1fr;
+  grid-template-rows: 5fr 1fr 1fr 1fr 1fr;
   width: 100%;
-  height: 85%;
+  height: 100%;
   border-radius: 20px;
   background-color: rgba(110, 142, 185, 0.5);
 }
 
-#login > div:first-child h1, #login > div:first-child h3 {
+#login > form h1, #login > form h3 {
   text-align: center;
 }
 
-#login > div:first-child h3 {
+#login > form h3 {
   text-shadow: 1px 2px 3px black;
 }
 
-#login > div:first-child input {
+#login > form input {
+  width: calc(100% - 20px);
   margin: 10px;
   padding: 5px;
   border-radius: 20px;
@@ -98,19 +99,16 @@ body {
   font-size: 1.2em;
 }
 
-#login > div:first-child .error {
+#login > form .error {
   color: red;
   font-size: 1.3em;
   background-color: rgba(0, 0, 0, 0.692);
 }
 
-#login button {
-  width: 100%;
-  height: 10%;
+#login > form [type=submit] {
   background-color: rgba(255, 255, 255, 0.555);
-  border-radius: 20px;
-  margin-top: 5%;
   font-family: "MuseoModerno", cursive, sans-serif;
+  cursor: pointer;
 }
 
 #registration {
@@ -118,24 +116,25 @@ body {
   height: 100%;
 }
 
-#registration > div:first-child {
+#registration > form {
   display: grid;
-  grid-template-rows: 4fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 4fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   width: 100%;
-  height: 85%;
+  height: 100%;
   border-radius: 20px;
   background-color: rgba(110, 142, 185, 0.5);
 }
 
-#registration > div:first-child h1, #registration > div:first-child h3 {
+#registration > form h1, #registration > form h3 {
   text-align: center;
 }
 
-#registration > div:first-child h3 {
+#registration > form h3 {
   text-shadow: 1px 2px 3px black;
 }
 
-#registration > div:first-child input {
+#registration > form input {
+  width: calc(100% - 20px);
   margin: 10px;
   padding: 5px;
   border-radius: 20px;
@@ -145,19 +144,16 @@ body {
   font-size: 1.2em;
 }
 
-#registration > div:first-child .error {
+#registration > form .error {
   color: red;
   font-size: 1.3em;
   background-color: rgba(0, 0, 0, 0.692);
 }
 
-#registration button {
-  width: 100%;
-  height: 10%;
+#registration > form [type=submit] {
   background-color: rgba(255, 255, 255, 0.555);
-  border-radius: 20px;
-  margin-top: 5%;
   font-family: "MuseoModerno", cursive, sans-serif;
+  cursor: pointer;
 }
 
 #welcome {

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Route, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 import ThemeContextProvider from '../context/ThemeContext';
 import MapContextProvider from '../context/MapContext';
 import UserContextProvider from '../context/UserContext';
@@ -22,42 +22,61 @@ const App = () => {
     const {token} = useContext(AuthContext);
 
     return (
-        <div> 
-            <Switch>
+        <BrowserRouter>   
+            <Switch>       
                 {!token && <Redirect from="/" to="/welcome" exact/>}
                 {token && <Redirect from="/welcome" to="/" exact/>}
-                {!token &&
-                <div id="authentication">
-                    <img src="/pictures/mountain.JPG" alt="mountain"></img>
-                    <div>
-                        <Route exact path="/welcome" component={Welcome}/>
-                        <Route exact path="/welcome/login" component={Login}/>
-                        <Route exact path="/welcome/registration" component={Registration} />
-                    </div>            
-                </div> 
+                {!token &&   
+                    <Route 
+                        path="/welcome"
+                        render={({match : {path}}) => {
+                            return(
+                                <div id="authentication">
+                                    <img src="/pictures/mountain.JPG" alt="mountain"></img>
+                                    <div>    
+                                        <Switch>                    
+                                            <Route exact path={path} component={Welcome}/>
+                                            <Route exact path={`${path}/login`} component={Login} />
+                                            <Route exact path={`${path}/registration`} component={Registration} />
+                                            <Route exact path={`${path}/*`} render={() => <Redirect to="/welcome"/>}/>
+                                        </Switch>    
+                                    </div>            
+                                </div>)
+                        }} 
+                    />
                 }
+
                 {token && 
-                <UserContextProvider>
-                    <ThemeContextProvider>
-                        <MapContextProvider>                        
-                            <Map />
-                            <Route exact path="/addstory" component={AddStory}/>
-                            <Route exact path="/storyboard" component={Storyboard}/>
-                            <Route exact path="/storyboard/:otheruser" component={Storyboard}/>
-                            <Route path="/story/edit/:storyid" component={EditStory}/>
-                            <Route path="/readstory/:storyid" component={ReadStory}/>
-                            <Route exact path="/account" component={Account}/>
-                            <Route exact path="/messages" component={Messages}/>
-                            <Route exact path="/sendmessage" component={SendMessage}/>
-                            <Route exact path="/sendmessage/:userid/:name" component={SendMessage}/>
-                            <Route exact path="/friends" component={Friends}/>
-                            <Route exact path="/users" component={Friends}/>                    
-                        </MapContextProvider>
-                    </ThemeContextProvider>
-                </UserContextProvider>            
-            }
-            </Switch>
-        </div>                  
+                    <Route 
+                        path="/"
+                        render={({match : {path}}) => {
+                            return(
+                                <UserContextProvider>
+                                    <ThemeContextProvider>
+                                        <MapContextProvider>                        
+                                            <Map />
+                                            <Switch>
+                                                <Route exact path={`${path}addstory`} component={AddStory}/>
+                                                <Route exact path={`${path}storyboard`} component={Storyboard}/>
+                                                <Route exact path={`${path}storyboard/:otheruser`} component={Storyboard}/>
+                                                <Route exact path={`${path}story/edit/:storyid`} component={EditStory}/>
+                                                <Route exact path={`${path}readstory/:storyid`} component={ReadStory}/>
+                                                <Route exact path={`${path}account`} component={Account}/>
+                                                <Route exact path={`${path}messages`} component={Messages}/>
+                                                <Route exact path={`${path}sendmessage`} component={SendMessage}/>
+                                                <Route exact path={`${path}sendmessage/:userid/:name`} component={SendMessage}/>
+                                                <Route exact path={`${path}friends`} component={Friends}/>
+                                                <Route exact path={`${path}users`} component={Friends}/> 
+                                                <Route path="/*" render={() => <Redirect to="/"/>}/>
+                                            </Switch>                        
+                                        </MapContextProvider>
+                                    </ThemeContextProvider>
+                                </UserContextProvider> ) 
+                        }}
+                    />                      
+                }
+            </Switch> 
+        </BrowserRouter> 
     );
 };
 
