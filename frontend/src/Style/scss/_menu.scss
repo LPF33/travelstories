@@ -111,7 +111,7 @@
             overflow-y: auto;
             height: calc(100vh - 50px);
 
-            @include flex(column, center, start);
+            @include flex(column, center, flex-start);
         }
     }
 }

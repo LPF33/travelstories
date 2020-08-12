@@ -26,6 +26,7 @@ app.use(express.static(path.join(__dirname + "/frontend/build")));
 const options = {origin: false, allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, csrf-token", credentials: true};
 app.use(cors(options));
 
+//Helmet 
 app.use(helmet.contentSecurityPolicy({
     directives:{
       defaultSrc:["'self'", "http://localhost:8080/"],

@@ -3,7 +3,6 @@ import {AuthContext} from "../context/AuthContext";
 import {useHistory} from "react-router-dom";
 import SlideAuth from "./SlideAuth";
 import axios, {updateAxios} from "../config/axios";
-import {socketToken} from "../config/client-socket";
 
 export default function Login(){
 
@@ -25,7 +24,6 @@ export default function Login(){
             if(check.data.success){
                 updateAxios(check.data.token);
                 window.localStorage.setItem("travelstories",check.data.token);
-                socketToken(check.data.token);
                 setToken(check.data.token);            
                 
                 history.replace("/");

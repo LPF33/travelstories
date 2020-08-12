@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 import ThemeContextProvider from '../context/ThemeContext';
 import MapContextProvider from '../context/MapContext';
 import UserContextProvider from '../context/UserContext';
+import SocketContextProvider from '../context/SocketContext';
 import {AuthContext} from "../context/AuthContext";
 import Login from "./Login";
 import Welcome from "./Welcome";
@@ -52,26 +53,29 @@ const App = () => {
                         render={({match : {path}}) => {
                             return(
                                 <UserContextProvider>
-                                    <ThemeContextProvider>
-                                        <MapContextProvider>                        
-                                            <Map />
-                                            <Switch>
-                                                <Route exact path={`${path}addstory`} component={AddStory}/>
-                                                <Route exact path={`${path}storyboard`} component={Storyboard}/>
-                                                <Route exact path={`${path}storyboard/:otheruser`} component={Storyboard}/>
-                                                <Route exact path={`${path}story/edit/:storyid`} component={EditStory}/>
-                                                <Route exact path={`${path}readstory/:storyid`} component={ReadStory}/>
-                                                <Route exact path={`${path}account`} component={Account}/>
-                                                <Route exact path={`${path}messages`} component={Messages}/>
-                                                <Route exact path={`${path}sendmessage`} component={SendMessage}/>
-                                                <Route exact path={`${path}sendmessage/:userid/:name`} component={SendMessage}/>
-                                                <Route exact path={`${path}friends`} component={Friends}/>
-                                                <Route exact path={`${path}users`} component={Friends}/> 
-                                                <Route path="/*" render={() => <Redirect to="/"/>}/>
-                                            </Switch>                        
-                                        </MapContextProvider>
-                                    </ThemeContextProvider>
-                                </UserContextProvider> ) 
+                                    <SocketContextProvider>                                    
+                                        <ThemeContextProvider>
+                                            <MapContextProvider>                        
+                                                <Map />
+                                                <Switch>
+                                                    <Route exact path={`${path}addstory`} component={AddStory}/>
+                                                    <Route exact path={`${path}storyboard`} component={Storyboard}/>
+                                                    <Route exact path={`${path}storyboard/:otheruser`} component={Storyboard}/>
+                                                    <Route exact path={`${path}story/edit/:storyid`} component={EditStory}/>
+                                                    <Route exact path={`${path}readstory/:storyid`} component={ReadStory}/>
+                                                    <Route exact path={`${path}account`} component={Account}/>
+                                                    <Route exact path={`${path}messages`} component={Messages}/>
+                                                    <Route exact path={`${path}sendmessage`} component={SendMessage}/>
+                                                    <Route exact path={`${path}sendmessage/:userid/:name`} component={SendMessage}/>
+                                                    <Route exact path={`${path}friends`} component={Friends}/>
+                                                    <Route exact path={`${path}users`} component={Friends}/> 
+                                                    <Route path="/*" render={() => <Redirect to="/"/>}/>
+                                                </Switch>                        
+                                            </MapContextProvider>
+                                        </ThemeContextProvider>
+                                    </SocketContextProvider>
+                                </UserContextProvider> 
+                            ) 
                         }}
                     />                      
                 }

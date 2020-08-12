@@ -124,6 +124,22 @@
     .icon:hover, .friendbutton:hover{
         border:2px solid rgb(247, 247, 147);
     }
+
+    .show-request{
+        animation: friends 1s ease-in infinite;
+    }
+
+    @keyframes friends{
+        0%{
+            transform: scale(1);
+        }
+        50%{
+            transform: scale(1.5);
+        }
+        100%{
+            transform: scale(1);
+        }
+    }
 }
 
 @media screen and (min-width: 960px){

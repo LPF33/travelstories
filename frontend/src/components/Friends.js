@@ -2,9 +2,9 @@ import React, {useState, useEffect, useContext} from "react";
 import {useLocation, Link} from "react-router-dom";
 import {UserContext} from "../context/UserContext";
 import {ThemeContext} from "../context/ThemeContext";
+import {SocketContext} from "../context/SocketContext";
 import Searchbar from "./Searchbar";
 import axios from "../config/axios";
-import socket from "../config/client-socket";
 
 const Friends = () => {
 
@@ -77,6 +77,8 @@ const Selectbar = (props) => {
 
 const FriendButton = (props) => {
 
+    const {emit} = useContext(SocketContext);
+
     const status_NoRequest = "no-request";
     const status_Request_Accepted = "request-accepted";
     const status_Request_MadeByOther = "request-made-by-other";
@@ -95,7 +97,8 @@ const FriendButton = (props) => {
     function sendRequest(){
         (async () => {
             const newStatus = await axios.post(`/api/friends/crudfriendstatus/${otherUserId}/${status}`);
-            socket.emit("check-mail");
+            emit("check-mail");
+            emit("update-user");
             setStatus(newStatus.data.status);
         })();
     }
@@ -114,7 +117,7 @@ const FriendButton = (props) => {
         );
     } else if(status == status_Request_MadeByOther){
         return(
-            <button className="getFriends friendbutton" style={{backgroundColor: "red"}} onClick={sendRequest}><i className="fas fa-user-check"></i></button>
+            <button className="getFriends friendbutton show-request" style={{backgroundColor: "red"}} onClick={sendRequest}><i className="fas fa-user-check"></i></button>
         );
     }
 }; 

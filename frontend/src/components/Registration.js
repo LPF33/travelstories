@@ -1,9 +1,8 @@
-import React, {useState, useContext} from "react";
+import React, {useContext} from "react";
 import {AuthContext} from "../context/AuthContext";
 import SlideAuth from "./SlideAuth";
 import axios, {updateAxios} from "../config/axios";
 import {useLocation, useHistory} from "react-router-dom";
-import {socketToken} from "../config/client-socket";
 import useFormValidation from "../customhooks/useFormValidation";
 
 const initialState = {
@@ -15,7 +14,7 @@ const initialState = {
 
 export default function Registration(){
 
-    const {setToken, setRegistred} = useContext(AuthContext);
+    const {setToken} = useContext(AuthContext);
     const location = useLocation();
     const history = useHistory();
 
@@ -27,8 +26,7 @@ export default function Registration(){
             
             const check = await axios.post(`/api/auth/register`, values);
             if(check.data.success){         
-                updateAxios(check.data.token);
-                socketToken(check.data.token);         
+                updateAxios(check.data.token);        
                 window.localStorage.setItem("travelstories",check.data.token);
                 window.localStorage.setItem("register",location.pathname);
                 setToken(check.data.token);

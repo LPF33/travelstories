@@ -2,10 +2,10 @@ import React, {useContext, useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import {ThemeContext} from "../context/ThemeContext";
 import {UserContext} from "../context/UserContext";
+import {SocketContext} from "../context/SocketContext";
 import axios from "../config/axios";
 import {checkStory} from "../config/validation";
 import {Mailsearch} from "./Searchbar";
-import socket from "../config/client-socket";
 
 const SendMessage = (props) => {
 
@@ -14,6 +14,7 @@ const SendMessage = (props) => {
     const {lightTheme, light, dark} = useContext(ThemeContext);
     const theme = lightTheme ? light : dark;
     const {userState, changeState} = useContext(UserContext);
+    const {emit} = useContext(SocketContext);
 
     const [mail, setMail] = useState({message:"",receiver:userid});
     const [error, setError] = useState("");
@@ -23,7 +24,7 @@ const SendMessage = (props) => {
         if(mail && mailCheck[0]){
             const result = await axios.post(`/api/friends/sendmessage`, mail);
             result.data.success ? setError("Mail was sent") : setError(result.data.error);
-            socket.emit("check-mail");
+            emit("check-mail");
         }else{
             setError(mailCheck[1]);
         } 

@@ -21,6 +21,10 @@ const IO = io => {
         socket.on("check-mail", () => {
             io.sockets.sockets[socket.id].broadcast.emit("new-mail");
         });
+
+        socket.on("update-user", () => {            
+            io.sockets.sockets[socket.id].broadcast.emit("update-user");
+        });
     });
 };
 

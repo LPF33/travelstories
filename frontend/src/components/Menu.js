@@ -27,7 +27,7 @@ const Menu = () => {
                 <Link to="/storyboard" style={{color:theme.text}} onClick={() => setShowMenu("hide")}>Storyboard</Link>
                 <div>Games</div>
                 <Link to="/friends" style={{color:theme.text}} onClick={() => setShowMenu("hide")}>Friends</Link>
-                <div>VideoChat</div>
+                <Link to="/users" style={{color:theme.text}} onClick={() => setShowMenu("hide")}>Users</Link>
                 <Link to="/account" style={{color:theme.text}} onClick={() => setShowMenu("hide")}>Account</Link>
                 <button type="button" onClick={logout} style={{color:theme.text}}>Logout</button>
             </div>

@@ -1,6 +1,4 @@
 import React, {createContext, useState, useEffect, useRef} from "react";
-import {socketToken} from "../config/client-socket";
-import axios from "../config/axios";
 
 export const AuthContext = createContext();
 
@@ -10,7 +8,7 @@ export default function AuthContextProvider(props){
 
     const [token, setToken] = useState(null);
 
-    const logout = async() => {        
+    const logout = async() => {       
         window.localStorage.removeItem("travelstories");
         clearTimeout(timeoutId.current);
         window.location.replace("/welcome");
@@ -23,7 +21,7 @@ export default function AuthContextProvider(props){
                 const jwt = JSON.parse(atob(token.split('.')[1]));
                 if(jwt.exp && (Date.now()>jwt.exp*1000)){
                     logout();
-                }else{
+                }else{                
                     const time = jwt.exp*1000-Date.now();
                     timeoutId.current = setTimeout(() => logout(),time);                    
                 }

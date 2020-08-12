@@ -1,6 +1,5 @@
 import React, {createContext, Component} from "react";
 import axios from "../config/axios";
-import socket from "../config/client-socket";
 
 export const UserContext = createContext();
 
@@ -45,23 +44,14 @@ export default class UserContextProvider extends Component{
     checkMails = async() => {
         const result = await axios.get(`/api/user/newmails`);
         this.setState({messages:result.data.emails});
-    }
+    }   
 
     componentDidMount = () => {     
         this.loadUser();
         this.checkMails();
-    }
-
-    componentWillUpdate = () => {
-        socket.on("new-mail", (data) => console.log(data)); 
-    }
-
-    componentWillUnmount = () => {
-        socket.disconnect();
-    }    
+    }   
 
     render(){
-
         const userState = this.state;
         const {changeState, loadUser, checkMails} = this;    
 

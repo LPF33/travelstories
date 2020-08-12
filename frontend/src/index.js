@@ -1,6 +1,5 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from "react-router-dom";
 import './Style/css/App.css';
 import App from './components/App';
 import AuthContextProvider from "./context/AuthContext";
