@@ -18,7 +18,7 @@ const Menu = () => {
     return(
         <div id="Menu" >
             <img src={theme.hamburger} alt="hamburgermenu" onClick={() => setShowMenu(showMenu==="show" ? "hide" : "show")}></img>
-            {showMenu==="hide" && <div className="alert"><MessageAlert /></div>}
+            {showMenu==="hide" && <div className="alert"><MessageAlert linked={true}/></div>}
             
             <div id="menu-bar" className={showMenu} style={{background:theme.backGround, color:theme.text}}>
                 <p className="user">{userState.user.name}{userState.user.picture && <img src={userState.user.picture} alt="userprofile"/>}</p>                

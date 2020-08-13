@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useContext} from 'react';
+import React, {useState, useEffect, useRef, useContext, useCallback} from 'react';
 import {Link, useHistory} from "react-router-dom";
 import mapboxgl from "mapbox-gl";
 import axios from "../config/axios";
@@ -54,9 +54,12 @@ const Map = () => {
                 "text-font":["Open Sans Semibold", "Arial Unicode MS Bold"],
                 "text-offset":[0, 0.9],
                 "text-anchor":"top"
+            },
+            paint:{
+                "text-color":theme.text
             }
         });
-    };
+    };   
 
     useEffect(() => {
 
@@ -64,7 +67,7 @@ const Map = () => {
             container: mapRef.current,
             style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
             center: [mapData.longitude,mapData.latitude], // starting position [lng, lat]
-            zoom: mapData.zoom // starting zoom
+            zoom: mapData.zoom // starting zoom            
         });
         
         const moveMap = () => {
@@ -115,11 +118,7 @@ const Map = () => {
 
             map.current.off("click", "places", popupLink);
         };
-    },[]);
-
-    useEffect(() => {
-        map.current.setStyle(`mapbox://styles/mapbox/${theme.map}`);
-    },[lightTheme]);
+    },[]);    
 
     useEffect(() => {
         if(goto.longitude && goto.latitude){
@@ -131,9 +130,16 @@ const Map = () => {
         map.current.on("load", storeStories);
 
         return () => map.current.off("load", storeStories);
-    },[allStories]);
+    },[allStories])
 
-    const changeMap = (long, lat, zoom) => {
+    useEffect(() => {
+        map.current.setStyle(`mapbox://styles/mapbox/${theme.map}`);
+        map.current.on("style.load", storeStories);
+
+        return () => map.current.off("style.load", storeStories);        
+    },[allStories, lightTheme]);
+
+    const changeMap = (long, lat, zoom) => {   
         map.current.setCenter([long, lat]);
         map.current.setZoom(zoom);
     };

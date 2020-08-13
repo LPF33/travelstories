@@ -1,9 +1,14 @@
-import React , {useState, createContext, useEffect} from "react";
+import React , {useState, createContext, useEffect, useContext} from "react";
+import {UserContext} from "./UserContext";
+import {SocketContext} from "../context/SocketContext";
 import axios from "../config/axios";
 
 export const MapContext = createContext();
 
 export default function MapContextProvider(props){
+
+    const {userState} = useContext(UserContext);
+    const {stateOn} = useContext(SocketContext);
 
     const [coordinates, setCoordinates] = useState({longitude:"", latitude:""});
     const [formatAddress, setFormatAddress] = useState("");
@@ -30,8 +35,23 @@ export default function MapContextProvider(props){
         setAllStories(result);
     }
 
+    const getUserLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                setGoto({longitude:position.coords.longitude,latitude:position.coords.latitude});
+            });
+        } else {
+          return;
+        }
+    }
+
     useEffect(() => {
+        console.log("update");
         updateStories();  
+    },[userState.deleteStatus,stateOn["new-story"]]);
+
+    useEffect(() => {  
+        getUserLocation();
     },[]);
     
     useEffect(() => {

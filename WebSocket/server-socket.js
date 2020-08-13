@@ -22,8 +22,12 @@ const IO = io => {
             io.sockets.sockets[socket.id].broadcast.emit("new-mail");
         });
 
-        socket.on("update-user", () => {            
-            io.sockets.sockets[socket.id].broadcast.emit("update-user");
+        socket.on("update-users", () => {            
+            io.sockets.sockets[socket.id].broadcast.emit("update-users");
+        });
+
+        socket.on("new-story", () => {            
+            io.sockets.sockets[socket.id].broadcast.emit("new-story");
         });
     });
 };

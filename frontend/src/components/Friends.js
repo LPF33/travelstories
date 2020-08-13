@@ -77,7 +77,7 @@ const Selectbar = (props) => {
 
 const FriendButton = (props) => {
 
-    const {emit} = useContext(SocketContext);
+    const {emit, stateOn} = useContext(SocketContext);
 
     const status_NoRequest = "no-request";
     const status_Request_Accepted = "request-accepted";
@@ -87,18 +87,20 @@ const FriendButton = (props) => {
     const {otherUserId} = props;
     const [status,setStatus] = useState("no-request");
 
+    const checkFriendStatus = async() => {
+        const newStatus = await axios.get(`/api/friends/checkfriendstatus/${otherUserId}`);
+        setStatus(newStatus.data.status);
+    };
+
     useEffect( () => {
-        (async () => {
-            const newStatus = await axios.get(`/api/friends/checkfriendstatus/${otherUserId}`);
-            setStatus(newStatus.data.status);
-        })();
-    },[]);
+        checkFriendStatus();
+    },[stateOn["update-users"]]);
 
     function sendRequest(){
         (async () => {
             const newStatus = await axios.post(`/api/friends/crudfriendstatus/${otherUserId}/${status}`);
             emit("check-mail");
-            emit("update-user");
+            emit("update-users");
             setStatus(newStatus.data.status);
         })();
     }

@@ -3,6 +3,7 @@ import {Link, useHistory} from "react-router-dom";
 import {ThemeContext} from "../context/ThemeContext";
 import {MapContext} from "../context/MapContext";
 import {UserContext} from "../context/UserContext";
+import {SocketContext} from "../context/SocketContext";
 import axios from "../config/axios";
 import {checkTitle, checkPictureFile, checkStory} from "../config/validation";
 
@@ -15,6 +16,7 @@ const EditStory = (props) => {
     const {lightTheme, light, dark} = useContext(ThemeContext);
     const theme = lightTheme ? light : dark;
     const {userState, changeState} = useContext(UserContext);
+    const {emit} = useContext(SocketContext);
 
     const [data, setData] = useState({title:"",address:"",status:"public",story:"",oldFile:""});
     const [file, setFile] = useState(null);
@@ -70,6 +72,7 @@ const EditStory = (props) => {
                     picture: url
                 });
                 if(result.data.success){
+                    emit("new-story");
                     changeState("loading");
                     history.replace("/storyboard");
                 }else{

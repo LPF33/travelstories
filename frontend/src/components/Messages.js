@@ -93,7 +93,7 @@ const Messages = () => {
 
 export default Messages;
 
-const MessageAlert = () => {
+const MessageAlert = ({linked}) => {
     const {userState} = useContext(UserContext);
     
     const [newMails, setNewMails] = useState(0);
@@ -116,7 +116,8 @@ const MessageAlert = () => {
             {newMails>0 && 
             <div className="mail-container">
                 <div className="circle"></div>
-                <div className="new-mails">{newMails}</div>
+                {linked && <Link to="/messages" className="new-mails">{newMails}</Link>}
+                {!linked && <div className="new-mails">{newMails}</div>}
             </div>            
             } 
         </div>               

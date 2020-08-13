@@ -1115,6 +1115,8 @@ img.img-theme {
   background-color: #80e5ff;
   border-radius: 50%;
   display: inline-block;
+  text-decoration: none;
+  color: black;
 }
 
 @media screen and (min-width: 1200px) {

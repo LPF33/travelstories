@@ -3,6 +3,7 @@ import {Link, useLocation, useHistory} from "react-router-dom";
 import {ThemeContext} from "../context/ThemeContext";
 import {UserContext} from "../context/UserContext";
 import {MapContext} from "../context/MapContext";
+import {SocketContext} from "../context/SocketContext";
 import axios from "../config/axios";
 
 const Storyboard = (props) => {
@@ -13,6 +14,7 @@ const Storyboard = (props) => {
     const theme = lightTheme ? light : dark;
 
     const {userState} = useContext(UserContext);
+
     const [stories, setStories] = useState([]);
     const [mystories, setMyStories] = useState([]);
     const [otherStories, setOtherStories] = useState([]);
@@ -64,7 +66,7 @@ const Storyboard = (props) => {
                                 <img src={item.picture} alt="picture"/>
                                 <h3>{item.title}</h3>
                                 <h5>{item.location.formattedAddress}</h5>
-                                <StoryboardMenu user={item.user} coordinates={item.location.coordinates} picture={item.picture} story={item}/>
+                                <StoryboardMenu user={item.user._id} coordinates={item.location.coordinates} picture={item.picture} story={item}/>
                             </div>);
                         })
                     }
@@ -96,7 +98,8 @@ const StoryboardMenu = (props) => {
 
     const {user, coordinates, picture, story, read} = props;
     const {userState, changeState} = useContext(UserContext);
-    const {setGoto, updateStories} = useContext(MapContext);    
+    const {setGoto, updateStories} = useContext(MapContext);  
+    const {emit} = useContext(SocketContext);  
 
     const check = user === userState.user._id;
 
@@ -112,6 +115,7 @@ const StoryboardMenu = (props) => {
             changeState("loading");
             changeState("editStory",null);
             updateStories();
+            emit("new-story");
             changeState("deleteStatus" , Math.random()*100000);
             if(location.pathname.startsWith("/readstory")){
                 history.replace("/");

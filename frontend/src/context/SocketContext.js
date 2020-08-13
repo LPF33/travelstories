@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useEffect, useRef} from "react";
+import React, {createContext, useContext, useEffect, useRef, useState} from "react";
 import io from "socket.io-client";
 import {AuthContext} from "./AuthContext";
 import {UserContext} from "./UserContext";
@@ -8,7 +8,12 @@ export const SocketContext = createContext();
 const SocketContextProvider = (props) => {
 
     const {token} = useContext(AuthContext);
-    const {checkMails, loadUser} = useContext(UserContext);
+    const {checkMails} = useContext(UserContext);
+
+    const [stateOn, setStateOn] = useState({
+        "update-users":false,
+        "new-story":false
+    });
 
     const socket = useRef();
 
@@ -24,7 +29,14 @@ const SocketContextProvider = (props) => {
         })
     
         socket.current.on("new-mail", checkMails);
-        socket.current.on("update-user", () => console.log("hhh"));
+        socket.current.on("update-users", () => {
+            const change = !stateOn["update-users"];
+            setStateOn({...stateOn, "update-users":change});
+        });
+        socket.current.on("new-story", () => {
+            const change = !stateOn["new-story"];
+            setStateOn({...stateOn, "new-story":change});
+        });
     }
 
     const emit = (emittext) => {
@@ -36,7 +48,8 @@ const SocketContextProvider = (props) => {
     },[]);
 
     return (
-        <SocketContext.Provider value={{emit}}>
+
+        <SocketContext.Provider value={{emit, stateOn}}>
             {props.children}
         </SocketContext.Provider>
     )

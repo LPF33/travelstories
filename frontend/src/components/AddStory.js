@@ -3,6 +3,7 @@ import {Link, useHistory} from "react-router-dom";
 import {ThemeContext} from "../context/ThemeContext";
 import {MapContext} from "../context/MapContext";
 import {UserContext} from "../context/UserContext";
+import {SocketContext} from "../context/SocketContext";
 import axios from "../config/axios";
 import {checkTitle, checkPictureFile, checkStory} from "../config/validation";
 
@@ -14,6 +15,7 @@ const AddStory = () => {
     const {lightTheme, light, dark} = useContext(ThemeContext);
     const theme = lightTheme ? light : dark;
     const {changeState} = useContext(UserContext);
+    const {emit} = useContext(SocketContext);
 
     const [data, setData] = useState({title:"",address:"",status:"public",story:""});
     const [file, setFile] = useState(null);
@@ -51,6 +53,7 @@ const AddStory = () => {
                 if(result.data.success){
                     changeState("loading");
                     updateStories();
+                    emit("new-story");
                     history.replace("/storyboard");
                 }else{
                     changeState("loading");
