@@ -46,7 +46,6 @@ export default function MapContextProvider(props){
     }
 
     useEffect(() => {
-        console.log("update");
         updateStories();  
     },[userState.deleteStatus,stateOn["new-story"]]);
 

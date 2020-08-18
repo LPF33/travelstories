@@ -34,6 +34,7 @@ const Map = () => {
     const [mapData, setMapData] = useState({longitude:13,latitude:50,zoom:4});
     const [search, setSearch] = useState("");
     const [foundData, setFoundData] = useState([]);
+    const [loaded, setLoaded] = useState(false);
 
     const storeStories = () => {
         map.current.addLayer({
@@ -59,7 +60,7 @@ const Map = () => {
                 "text-color":theme.text
             }
         });
-    };   
+    }; 
 
     useEffect(() => {
 
@@ -101,6 +102,14 @@ const Map = () => {
             history.push(link);
         };
 
+        const getStories = () => {            
+            if(map.current.loaded()){
+                setLoaded(true); 
+            }else{
+                map.current.once("render", getStories);
+            }
+        }
+
         map.current.on('move', moveMap);
 
         map.current.on("dblclick", dblclickMap);
@@ -108,6 +117,8 @@ const Map = () => {
         map.current.on("moveend", moveendMap);
 
         map.current.on("click", "places", popupLink);
+
+        getStories();
 
         return () => {
             map.current.off('move', moveMap);
@@ -127,17 +138,20 @@ const Map = () => {
     },[goto]);
 
     useEffect(() => {
-        map.current.on("load", storeStories);
-
-        return () => map.current.off("load", storeStories);
+        if(!loaded){
+            map.current.on("load", storeStories);
+            return () => map.current.off("load", storeStories);
+        }
+        
     },[allStories])
 
     useEffect(() => {
-        map.current.setStyle(`mapbox://styles/mapbox/${theme.map}`);
-        map.current.on("style.load", storeStories);
-
-        return () => map.current.off("style.load", storeStories);        
-    },[allStories, lightTheme]);
+        if(loaded){
+            map.current.on("style.load", storeStories); 
+            map.current.setStyle(`mapbox://styles/mapbox/${theme.map}`);
+            return () => map.current.off("style.load", storeStories);
+        }    
+    },[lightTheme]);
 
     const changeMap = (long, lat, zoom) => {   
         map.current.setCenter([long, lat]);
