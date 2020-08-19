@@ -27,5 +27,5 @@
 - JsonWebToken
 - Mapbox API
 - Node-Geocoder
-- Socket.io
+- SASS
 - Amazon Web Services
