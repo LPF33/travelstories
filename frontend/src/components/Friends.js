@@ -66,10 +66,8 @@ const Selectbar = (props) => {
         <div className="select-bar">
             <div>
                 <Link to={!check ? `/storyboard/${user._id}` : `/storyboard`} className="user icon"><i className="fas fa-user"></i></Link>
-                {!check && <FriendButton otherUserId={user._id}/>}
-                {!check && <div className="game icon"><i className="fas fa-gamepad"></i></div>}            
+                {!check && <FriendButton otherUserId={user._id}/>}            
             </div>
-            {!check && <div className="video icon"><i className="fas fa-video"></i></div>}
             {!check && <Link to={`/sendmessage/${user._id}/${user.name}`} className="icon"><i className="fas fa-pencil-alt"></i></Link>}
         </div>
     );

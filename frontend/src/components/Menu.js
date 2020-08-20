@@ -25,7 +25,6 @@ const Menu = () => {
                 <Link to="/" style={{color:theme.text}} onClick={() => setShowMenu("hide")}>Main</Link>
                 <Link to="/messages" style={{color:theme.text}} onClick={() => setShowMenu("hide")}>Messages <MessageAlert /></Link>
                 <Link to="/storyboard" style={{color:theme.text}} onClick={() => setShowMenu("hide")}>Storyboard</Link>
-                <div>Games</div>
                 <Link to="/friends" style={{color:theme.text}} onClick={() => setShowMenu("hide")}>Friends</Link>
                 <Link to="/users" style={{color:theme.text}} onClick={() => setShowMenu("hide")}>Users</Link>
                 <Link to="/account" style={{color:theme.text}} onClick={() => setShowMenu("hide")}>Account</Link>
