@@ -3,8 +3,11 @@
 ## Write your stories and pin it to the Map!
 
 Click on the map or search for an address and an addStory-modal screen opens. The coordinates
-to the specific location including your story will be saved and pinned to the map. You can read from
-other users their stories and connect with them, e.g. send mails.
+to the specific location including your story and one uploaded picture will be saved and pinned to the map. You can read from other users their stories and connect with them, e.g. send mails. JWT-Authentication.
+
+## PREVIEW
+
+![](travelstories.gif)
 
 ## Tech Stack:
 
@@ -33,7 +36,3 @@ other users their stories and connect with them, e.g. send mails.
 -   Storyboard
 -   See all users / get friends
 -   Change Account settings
-
-## PREVIEW
-
-![](travelstories.gif)
