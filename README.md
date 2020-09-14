@@ -3,8 +3,19 @@
 ## Write your stories and pin it to the Map!
 
 Click on the map or search for an address and an addStory-modal screen opens. The coordinates
-to the specific location with your story to this place will be saved and pinned to the map. You can read from
+to the specific location including your story will be saved and pinned to the map. You can read from
 other users their stories and connect with them, e.g. send mails.
+
+## Tech Stack:
+
+-   React / Context API
+-   Node.js
+-   Mongo DB
+-   JsonWebToken
+-   Mapbox API
+-   Node-Geocoder
+-   SASS
+-   Amazon Web Services
 
 ### Features:
 
@@ -26,14 +37,3 @@ other users their stories and connect with them, e.g. send mails.
 ## PREVIEW
 
 ![](travelstories.gif)
-
-## Tech Stack:
-
--   React / Context API
--   Node.js
--   Mongo DB
--   JsonWebToken
--   Mapbox API
--   Node-Geocoder
--   SASS
--   Amazon Web Services
